@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Pokemon</title>
+</head>
+<body>
+    <h1>Actualizar Pokemon</h1>
+    <a href="/">&lt;-- Volver a inicio</a>
+    <br>
+    <form action="/update" method="POST">
+        <input type="hidden" name="id" value="<%= pokemon.id %>">
+        <div>
+            <label for="name">Nombre:</label>
+            <br>
+            <input type="text" name="name" id="name" value="<%= pokemon.name %>">
+        </div>
+        <br>
+        <div>
+            <label for="type">Tipo:</label>
+            <br>
+            <input type="text" name="type" id="type" value="<%= pokemon.type %>">
+        </div>
+        <br>
+        <div>
+            <label for="level">Nivel:</label>
+            <br>
+            <input type="number" name="level" id="level" value="<%= pokemon.level %>">
+        </div>
+        <br>
+        <button>Guardar</button>
+    </form>
+</body>
+</html>

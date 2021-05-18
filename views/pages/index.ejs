@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+</head>
+<body>
+    <h1>Pokemon</h1>
+    <a href="/create">+ Añadir Pokemon</a>
+    <ul>
+        <% pokemon.forEach((poke) => { %>
+            <li>
+                <%= poke.name %> 
+                <a href="/update/<%= poke.id %>">Editar</a>
+
+                <!-- Form para poder enviar un POST y borrar el registro -->
+                <!-- No es un GET, ya que no consulta información -->
+                <!-- Debería de ser un DELETE, pero utilizaremos POST (por motivos de simpleza) -->
+                <form action="/delete" method="POST">
+                    <!-- 1) La información que se va a enviar -->
+                    <!-- hidden: envían información, pero no se ven -->
+                    <input type="hidden" name="id" value="<%= poke.id %>">
+                    <!-- 2) Botón para enviar -->
+                    <button>Borrar</button>
+                </form>
+            </li>
+        <% }); %> 
+    </ul>
+</body>
+</html>
