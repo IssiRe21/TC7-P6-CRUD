@@ -1,15 +1,15 @@
-const {Sequelize, DataTypes} = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const Model = Sequelize.Model;
-const {sequelize} = require('./../config/db');
+const { sequelize } = require('../config/db');
 
 // Crear el modelo (tabla)
 // Nombre del modelo debe ser con mayúscula al inicio
 // en singular
 // "Crear un modelo llamado Pokemon" / "tabla llamada pokemon"
-class Pokemon extends Model {};
+class Notes extends Model { };
 
 // Configurar al modelo / la tabla
-Pokemon.init({
+Notes.init({
     // 1) Configurar sus campos / las columnas de la tabla
 
     // Agregar columna name
@@ -19,14 +19,14 @@ Pokemon.init({
         // NON NULL (obligatorio)
         allowNull: false,
     },
-    type: {
+    content: {
         // VARCHAR
         type: DataTypes.STRING,
         // NON NULL (obligatorio)
         allowNull: false,
     },
-    level: {
-        // INT
+    pokemonId: {
+        // VARCHAR
         type: DataTypes.INTEGER,
         // NON NULL (obligatorio)
         allowNull: false,
@@ -37,10 +37,9 @@ Pokemon.init({
     // Conexión (requerida)
     sequelize,
     // Renombrar tabla a minúsculas (opcional)
-    modelName: 'pokemon',
-    
+    modelName: 'notes',
 });
 
 // Exportar un objeto, que dentro tiene al modelo Game
-module.exports = {Pokemon};
+module.exports = { Notes };
 

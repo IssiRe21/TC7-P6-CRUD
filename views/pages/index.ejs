@@ -14,6 +14,7 @@
             <li>
                 <%= poke.name %> 
                 <a href="/update/<%= poke.id %>">Editar</a>
+                <a href="/notes/<%= poke.id %>">Notas</a>
 
                 <!-- Form para poder enviar un POST y borrar el registro -->
                 <!-- No es un GET, ya que no consulta información -->
@@ -28,5 +29,6 @@
             </li>
         <% }); %> 
     </ul>
+
 </body>
 </html>

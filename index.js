@@ -5,13 +5,14 @@ const bodyParser = require("body-parser");
 // Un objeto, que dentro tiene a "sequelize"
 const { sequelize } = require("./config/db");
 const { Pokemon } = require("./models/pokemon.model");
+const { Notes } = require("./models/notes.model");
 const app = express();
 const port = 3000;
 
 // Solamente utilizar force: true para aplicar cambios sobre modelos/tablas
 // Borra toda la información para poder ajustar los modelos/tablas
 // Nota: profesionalmente, se utiliza algo llamado "Migrations"
-// sequelize.sync({force: true});
+//sequelize.sync({force: true});
 
 // Una vez que tenemos los modelos, omitimos el force para que la información se mantenga
 sequelize.sync({});
@@ -60,6 +61,9 @@ app.get("/", (req, res) => {
         });
     })();
 });
+
+
+
 
 // Create, parte 1
 // Cuando alguien ingrese a la url "/create" (localhost:3000/create), se hace esto
@@ -140,6 +144,7 @@ app.post('/update', (req, res, next) => {
     })();
 });
 
+
 // Delete
 app.post('/delete', (req, res, next) => {
     (async () => {
@@ -152,6 +157,44 @@ app.post('/delete', (req, res, next) => {
         });
 
         res.redirect('/');
+    })();
+});
+
+app.get('/notes/:id', (req, res, next) => {
+    let id = req.params.id;
+
+    (async () => {
+        let pokemon = await Pokemon.findByPk(id);
+
+        let notes = await Notes.findAll({
+            where: {
+                pokemonId : id,
+            },
+        });
+
+        res.render('pages/notes', {
+            poke: pokemon,
+            notes: notes,
+        });
+    })();
+});
+
+
+app.post('/notes/create', (req, res, next) => {
+    let pokemonId = req.body.pokemonId;
+    let name = req.body.name;
+    let content = req.body.content;
+
+    (async () => {
+        await Notes.create({
+            name: name,
+            content: content,
+            // gameId es una columna que se agrega automáticamente debido a la relación
+            // entre ambos modelos
+            pokemonId: pokemonId,
+        });
+
+        res.redirect('/notes/' + pokemonId);
     })();
 });
 
